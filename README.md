@@ -10,6 +10,8 @@
 * [zabbix_comm_plan.zip](zabbix_comm_plan.zip) - The Communication Plan that receives Zabbix alerts
 * [zabbix_files.zip](zabbix_files.zip) - Files required by the Integration Agent and Zabbix
 
+**Note**: To download, follow each link above and then click the **Download** button. Do not try to download by right-clicking the links.
+
 # Installation
 
 ## xMatters set up
