@@ -178,7 +178,3 @@ In the Add xMatters API User step above, you created a user called xMatters in Z
 To test the integration, create a Zabbix event by causing the conditions required to trigger it. The associated Action will call xMatters to send notifications.
 
 When you receive the xMatters notification, respond with **Acknowledge** and, if using the xMatters Mobile App, add a comment. In Zabbix, go to **Monitoring**, then **Problems** to verify that the event is acknowledged and that any comment is shown when you mouse over the Ack.
-
-
-
-Last Updated: 7/1/2016
