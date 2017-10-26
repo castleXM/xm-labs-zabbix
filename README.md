@@ -1,6 +1,15 @@
 # Zabbix
 [Zabbix](https://www.zabbix.com) is a mature and effortless enterprise-class open source monitoring solution for network monitoring and application monitoring of millions of metrics. This integration extends the alerting capabilities to use xMatters. 
 
+---------
+
+<kbd>
+  <img src="https://github.com/xmatters/xMatters-Labs/raw/master/media/disclaimer.png">
+</kbd>
+
+---------
+
+
 # Pre-Requisites
 * [Zabbix](https://www.Zabbix.com) (tested with version 3.2 but should support others)
 * xMatters account - If you don't have one, [get one](https://www.xmatters.com)!
