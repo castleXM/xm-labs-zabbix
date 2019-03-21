@@ -26,7 +26,7 @@
 ## xMatters set up
 ### Add Event Domain
 To add the Event Domain in xMatters:
-1. In xMatters, go to the **Developer** tab and then select **Event Domains** from the left hand menu.
+1. In xMatters, go to the **Developer** tab and then select **Event Domains** from the left hand menu. (If the Event Domain menu is not available in your system, [contact support](https://support.xmatters.com/hc/en-us/requests/new) to perform the next 3 steps.)
 2. Click on the **applications** link.
 3. Click **Add New** next to INTEGRATION SERVICES.
 4. Enter `Zabbix` as the name and click **Save**.
