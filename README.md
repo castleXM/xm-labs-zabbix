@@ -16,7 +16,7 @@
 * xMatters Integration Agent (IA) - Installed on the Zabbix server and configured. The IA is available [here](https://support.xmatters.com/hc/en-us/articles/201463419-Integration-Agent-for-xMatters-5-x-xMatters-On-Demand).
 
 # Files
-* [zabbix_comm_plan.zip](zabbix_comm_plan.zip) - The Communication Plan that receives Zabbix alerts
+* [zabbix_comm_plan.zip](zabbix_comm_plan.zip) - The Workflow that receives Zabbix alerts
 * [zabbix_files.zip](zabbix_files.zip) - Files required by the Integration Agent and Zabbix
 
 **Note**: To download, follow each link above and then click the **Download** button. Do not try to download by right-clicking the links.
@@ -31,37 +31,37 @@ To add the Event Domain in xMatters:
 3. Click **Add New** next to INTEGRATION SERVICES.
 4. Enter `Zabbix` as the name and click **Save**.
 
-### Import the communication plan
-To import the communication plan into xMatters:
-1. From the xMatters **Developer** tab, select **Communication Plans** from the left hand menu.
+### Import the Workflow
+To import the Workflow into xMatters:
+1. From the xMatters **Developer** tab, select **Workflows** from the left hand menu.
 2. Click **Import Plan**.
-3. Click **Choose File**, and then locate the downloaded communication plan (.zip file).
+3. Click **Choose File**, and then locate the downloaded Workflow (.zip file).
 4. Click **Import Plan**.
 	* Importing the plan will automatically enable it, and enable its forms for web services.
 
 ### Access URL
-The Comm Plan has a URL that is required when configuring the Integration Agent.
+The Workflow has a URL that is required when configuring the Integration Agent.
 To get the URL:
-1. On the Zabbix Comm Plan, click **Edit**, then **Integration Builder**.
+1. On the Zabbix Workflow, click **Edit**, then **Integration Builder**.
 2. On the Integration Builder tab, expand the list of Inbound integrations.
-3. Click the gear icon beside Zabbix inbound, and then select **Integration URL**.
+3. Click on **Zabbix Inbound** to display the inbound integration settings. 
+4. Scroll down and copy the Integration Url at the bottom. Save for later. 
 
 <kbd>
 	<img src="images/integration_url.png">
 </kbd>
 
-Copy the URL displayed in the dialog box and save it for use below.
 
 ## Setup the Integration Agent (IA) 
 To add the Zabbix integration to your Integration Agent:
-1. Extract zabbix_files.zip on the Zabbix server.
-2. Under the integration-agent folder, copy the zabbix folder to &lt;IA_HOME&gt;/integrationservices/
-3. Edit &lt;IA_HOME&gt;/integrationservices/zabbix/configuration.json
-	* Set WEB_SERVICE_URL to the URL copied earlier.
-	* Set ZABBIX_API_URL with the correct URL to your Zabbix API.
-4. Edit &lt;IA_HOME&gt;/conf/IAConfig.xml
-    * Add `<path>zabbix/zabbix.xml</path>` under the &lt;service-configs&gt; node.
-5. From &lt;IA_HOME&gt;/bin, execute ``./iadmin.sh reload all``
+1. Extract [zabbix_files.zip](zabbix_files.zip) on the Zabbix server.
+2. Under the integration-agent folder, copy the zabbix folder to `<IA_HOME/integrationservices/`
+3. Edit `<IA_HOME/integrationservices/zabbix/configuration.json`
+	* Set `WEB_SERVICE_URL` to the URL copied earlier.
+	* Set `ZABBIX_API_URL` with the correct URL to your Zabbix API.
+4. Edit `IA_HOME/conf/IAConfig.xml`
+    * Add `<path>zabbix/zabbix.xml</path>` under the `service-configs` node.
+5. From `IA_HOME/bin`, execute `./iadmin.sh reload all`
     * This loads the new configuration into the Integration Agent.
 
 ## Zabbix Setup
@@ -172,8 +172,9 @@ To create an Action that sends a notification via xMatters:
 ## Setup Alert Script 
 To add the Zabbix integration to your Integration Agent:
 1. Extract zabbix_files.zip on the Zabbix server.
-2. Under the zabbix-alertscripts folder, copy xMattersEvent.sh to the Zabbix AlertScripts folder.
+2. Under the zabbix-alertscripts folder, copy `xMattersEvent.sh` to the Zabbix AlertScripts folder.
     * If you don't know the location of the Zabbix AlertScripts folder, check your Zabbix configuration file.
+3. Open the `xMattersEvent.sh` file in a text editor and update the `IAHOME` value to point to where the Integration Agent is installed.
 3. In the Zabbix AlertScripts folder, execute ``chmod 755 xMattersEvent.sh``
 
 ## Setup Encrypted Password File
