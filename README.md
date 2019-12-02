@@ -16,7 +16,7 @@
 * xMatters Integration Agent (IA) - Installed on the Zabbix server and configured. The IA is available [here](https://support.xmatters.com/hc/en-us/articles/201463419-Integration-Agent-for-xMatters-5-x-xMatters-On-Demand).
 
 # Files
-* [zabbix_comm_plan.zip](zabbix_comm_plan.zip) - The Workflow that receives Zabbix alerts
+* [Zabbix_Workflow.zip](Zabbix_Workflow.zip) - The Workflow that receives Zabbix alerts
 * [zabbix_files.zip](zabbix_files.zip) - Files required by the Integration Agent and Zabbix
 
 **Note**: To download, follow each link above and then click the **Download** button. Do not try to download by right-clicking the links.
