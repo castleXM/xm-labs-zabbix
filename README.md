@@ -11,60 +11,32 @@
 
 
 # Pre-Requisites
-* [Zabbix](https://www.Zabbix.com) (tested with version 3.2 but should support others)
+* [Zabbix](https://www.Zabbix.com) (tested with version 5.0 but should support others)
 * xMatters account - If you don't have one, [get one](https://www.xmatters.com)!
-* xMatters Integration Agent (IA) - Installed on the Zabbix server and configured. The IA is available [here](https://support.xmatters.com/hc/en-us/articles/201463419-Integration-Agent-for-xMatters-5-x-xMatters-On-Demand).
 
 # Files
-* [Zabbix_Workflow.zip](Zabbix_Workflow.zip) - The Workflow that receives Zabbix alerts
-* [zabbix_files.zip](zabbix_files.zip) - Files required by the Integration Agent and Zabbix
+* [Zabbix.zip](Zabbix.zip) - The Workflow that receives Zabbix alerts
 
 **Note**: To download, follow each link above and then click the **Download** button. Do not try to download by right-clicking the links.
 
 # Installation
 
 ## xMatters set up
-### Add Event Domain
-To add the Event Domain in xMatters:
-1. In xMatters, go to the **Developer** tab and then select **Event Domains** from the left hand menu. (If the Event Domain menu is not available in your system, [contact support](https://support.xmatters.com/hc/en-us/requests/new) to perform the next 3 steps.)
-2. Click on the **applications** link.
-3. Click **Add New** next to INTEGRATION SERVICES.
-4. Enter `Zabbix` as the name and click **Save**.
 
 ### Import the Workflow
 To import the Workflow into xMatters:
-1. From the xMatters **Developer** tab, select **Workflows** from the left hand menu.
-2. Click **Import Plan**.
-3. Click **Choose File**, and then locate the downloaded Workflow (.zip file).
-4. Click **Import Plan**.
-	* Importing the plan will automatically enable it, and enable its forms for web services.
+1. Go to the xMatters **Workflows** tab
+2. Click **Import**.
 
 ### Access URL
-The Workflow has a URL that is required when configuring the Integration Agent.
+The Workflow has a URL that is required when configuring Zabbix.
 To get the URL:
-1. On the Zabbix Workflow, click **Edit**, then **Integration Builder**.
-2. On the Integration Builder tab, expand the list of Inbound integrations.
-3. Click on **Zabbix Inbound** to display the inbound integration settings. 
-4. Scroll down and copy the Integration Url at the bottom. Save for later. 
-
-<kbd>
-	<img src="images/integration_url.png">
-</kbd>
-
-
-## Setup the Integration Agent (IA) 
-To add the Zabbix integration to your Integration Agent:
-1. Extract [zabbix_files.zip](zabbix_files.zip) on the Zabbix server.
-2. Under the integration-agent folder, copy the zabbix folder to `<IA_HOME/integrationservices/`
-3. Edit `<IA_HOME/integrationservices/zabbix/configuration.json`
-	* Set `WEB_SERVICE_URL` to the URL copied earlier.
-	* Set `ZABBIX_API_URL` with the correct URL to your Zabbix API.
-4. Edit `IA_HOME/conf/IAConfig.xml`
-    * Add `<path>zabbix/zabbix.xml</path>` under the `service-configs` node.
-5. From `IA_HOME/bin`, execute `./iadmin.sh reload all`
-    * This loads the new configuration into the Integration Agent.
+1. On the Zabbix Workflow, click one the **Flows** tab.
+2. Click on the **Inbound from Zabbix** step and copy the initiation URL.
+3. This URL will be used when setting up the xMatters Media type in Zabbix.
 
 ## Zabbix Setup
+
 ### Add xMatters API User
 In order for xMatters to Acknowledge and add comments to a Zabbix event, it needs to be able to use the Zabbix API. In order to use the API, an xMatters user needs to be created in Zabbix for authentication:
 1. In Zabbix, go to **Administration**, then **Users** and click **Create User**.
@@ -76,26 +48,22 @@ In order for xMatters to Acknowledge and add comments to a Zabbix event, it need
     * **Password**: &lt;set a password for this user&gt;
     * **Password (once again)**: &lt;repeat the previous password&gt;
         * Remember this password as it will be needed later
+
+<details>
+<summary>Click to reveal image.</summary>
+<kbd>
+<img src="images/api_user.png"/>
+</kbd>
+</details>
+
 3. On the **Permissions** tab, enter the following:
     * **User Type**: Zabbix Super Admin
 4. Click **Add**.
 
 ### Create the xMatters Media Type
-Media types are used for sending notifications from Zabbix. To create an xMatters Media Type:
-1. In Zabbix, go to **Administration**, then **Media Types** and click **Create Media Type**.
-2. Enter the following:
-    * **Name**: `xMatters`
-    * **Type** Script
-    * **Script Name**: `xMattersEvent.sh`
-    * **Script Parmeters**:
-        * `{ALERT.SENDTO}`
-        * `{ALERT.SUBJECT}`
-        * `{ALERT.MESSAGE}`
-3. Click the **Add** button.
+-----------------------------TODO-------------------------------------TODO
+Upload the media file provided
 
-<kbd>
-	<img src="images/media_type.png">
-</kbd>
 
 ### Create/Update Recipients
 If you intend to send notifications directly to specific users:
@@ -109,9 +77,12 @@ If you intend to send notifications directly to specific users:
 4. Click **Add**.
 5. Repeat these steps for each of your users. 
 
+<details>
+<summary>Click to reveal image</summary>
 <kbd>
-	<img src="images/user_media.png">
+<img src="images/user_media.png">
 </kbd>
+</details>
 
 If you intend to send notifications to groups in xMatters, you will need to create a **user** (not a group) in Zabbix to represent the xMatters group. You cannot use Zabbix groups as Zabbix expands those groups before calling xMatters, sending it to each user individually instead of following group shifts and escalations.
 
@@ -139,35 +110,39 @@ In Zabbix, an Action is used to when you want to do something (such as send a no
 To create an Action that sends a notification via xMatters:
 1. In Zabbix, go to **Configuration**, then **Actions** and click **Create Action**.
 2. In the **Action** tab, set a Name and Conditions for your Action.
+
+<details>
+<summary>Click to reveal image.</summary>
+<kbd>
+<img src="images/action1.png">
+</kbd>
+</details>
+
 3. In the **Operations** tab, under the Operations section click the **New** link.
+
+<details>
+<summary>Click to reveal image.</summary>
+<kbd>
+<img src="images/action2.png">
+</kbd>
+</details>
+
 4. Enter the following:
     * **Send to Groups**: &lt;leave empty&gt;
     * **Send to Users**: &lt;select your users and/or xMatters groups&gt;
     * **Send only to**: xMatters
     * **Default message**: &lt;uncheck&gt;
-    * **Message**: &lt;enter the following in order, one per line&gt;
-```
-{EVENT.ID}
-{HOST.CONN1}
-{HOST.DESCRIPTION1}
-{HOST.IP1}
-{HOST.NAME1}
-{ITEM.DESCRIPTION1}
-{ITEM.ID1}
-{ITEM.KEY1}
-{ITEM.NAME1}
-{ITEM.VALUE1}
-{TRIGGER.NAME}
-{TRIGGER.SEVERITY}
-{TRIGGER.STATUS}
-{TRIGGER.URL}
-```
+
+<details>
+<summary>Click to reveal image.</summary>
+<kbd>
+<img src="images/action3.png">
+</kbd>
+</details>
+
 5. Click the **Add** link (not the button).
 6. Click the **Add** button.
 
-<kbd>
-	<img src="images/action.png">
-</kbd>
 
 ## Setup Alert Script 
 To add the Zabbix integration to your Integration Agent:
@@ -176,13 +151,6 @@ To add the Zabbix integration to your Integration Agent:
     * If you don't know the location of the Zabbix AlertScripts folder, check your Zabbix configuration file.
 3. Open the `xMattersEvent.sh` file in a text editor and update the `IAHOME` value to point to where the Integration Agent is installed.
 3. In the Zabbix AlertScripts folder, execute ``chmod 755 xMattersEvent.sh``
-
-## Setup Encrypted Password File
-In the Add xMatters API User step above, you created a user called xMatters in Zabbix. The Integration Agent will log in as this user when accessing the Zabbix API. To encrypt the password for xMatters to use when it logs in, perform the following:
-1. Change directory to &lt;IA_HOME&gt;/bin
-2. Execute ``./iapassword.sh --new <PASSWORD> --file integrationservices/zabbix/.zabbixpasswd``
-    * Replace &lt;PASSWORD&gt; with the password for the xMatters user in Zabbix.
-    * Note that there are two dashes in front of ``new`` and ``file``.
 
 # Testing
 To test the integration, create a Zabbix event by causing the conditions required to trigger it. The associated Action will call xMatters to send notifications.
