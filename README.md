@@ -72,7 +72,7 @@ Upload the media file provided
 ### Create/Update Recipients
 
 <details>
-<summary>If you intend to send notifications directly to specific users:</summary>
+<summary>If you intend to send notifications directly to specific users</summary>
 
 1. In Zabbix, go to **Administration**, then **Users** and select your user.
 2. In the **Media** tab, click the **Add** link.
@@ -95,7 +95,7 @@ Upload the media file provided
 If you intend to send notifications to groups in xMatters, you will need to create a **user** (not a group) in Zabbix to represent the xMatters group. You cannot use Zabbix groups as Zabbix expands those groups before calling xMatters, sending it to each user individually instead of following group shifts and escalations.
 
 <details>
-<summary>To send to notifications to xMatters groups:</summary>
+<summary>To send to notifications to xMatters groups</summary>
 
 1. In Zabbix, go to **Administration**, then **Users** and click **Create User**.
 2. On the **User** tab, enter the following:
@@ -131,13 +131,6 @@ To create an Action that sends a notification via xMatters:
 
 3. In the **Operations** tab, under the Operations section click the **New** link.
 
-<details>
-<summary>Click to reveal image.</summary>
-<kbd>
-<img src="images/action2.png">
-</kbd>
-</details>
-
 4. Enter the following:
     * **Send to Groups**: &lt;leave empty&gt;
     * **Send to Users**: &lt;select your users and/or xMatters groups&gt;
@@ -147,7 +140,7 @@ To create an Action that sends a notification via xMatters:
 <details>
 <summary>Click to reveal image.</summary>
 <kbd>
-<img src="images/action3.png">
+<img src="images/action2.png">
 </kbd>
 </details>
 
@@ -159,3 +152,5 @@ To create an Action that sends a notification via xMatters:
 To test the integration, create a Zabbix event by causing the conditions required to trigger it. The associated Action will call xMatters to send notifications.
 
 When you receive the xMatters notification, respond with **Acknowledge** and, if using the xMatters Mobile App, add a comment. In Zabbix, go to **Monitoring**, then **Problems** to verify that the event is acknowledged and that any comment is shown when you mouse over the Ack.
+
+Check [here](https://www.zabbix.com/documentation/current/manual/api/reference/event/acknowledge) for more documentation on the acknowledge API call.
