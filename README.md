@@ -16,6 +16,7 @@
 
 # Files
 * [Zabbix.zip](Zabbix.zip) - The Workflow that receives Zabbix alerts
+* [xMatters_media_type.xml](xMatters_media_type.xml) - xMatters media type for Zabbix
 
 **Note**: To download, follow each link above and then click the **Download** button. Do not try to download by right-clicking the links.
 
@@ -28,10 +29,10 @@ To import the Workflow into xMatters:
 1. Go to the xMatters **Workflows** tab
 2. Click **Import**.
 
-### Access URL
+### Initiation URL
 The Workflow has a URL that is required when configuring Zabbix.
 To get the URL:
-1. On the Zabbix Workflow, click one the **Flows** tab.
+1. In the Zabbix Workflow click on the **Flows** tab.
 2. Click on the **Inbound from Zabbix** step and copy the initiation URL.
 3. This URL will be used when setting up the xMatters Media type in Zabbix.
 
@@ -67,6 +68,7 @@ Upload the media file provided
 1. Go to **Administration > Media Types** in Zabbix.
 2. Click **Import** in the upper right corner.
 3. Import the provided xMatters media type file.
+4. Modify the `xm_url` value to have initation URL from xMatters.
 
 
 ### Create/Update Recipients
