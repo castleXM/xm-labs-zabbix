@@ -73,6 +73,7 @@ Upload the media file provided
 
 <details>
 <summary>If you intend to send notifications directly to specific users:</summary>
+
 1. In Zabbix, go to **Administration**, then **Users** and select your user.
 2. In the **Media** tab, click the **Add** link.
 3. Enter the following:
@@ -95,6 +96,7 @@ If you intend to send notifications to groups in xMatters, you will need to crea
 
 <details>
 <summary>To send to notifications to xMatters groups:</summary>
+
 1. In Zabbix, go to **Administration**, then **Users** and click **Create User**.
 2. On the **User** tab, enter the following:
     * **Alias**: &lt;the name of your xMatters group&gt;
