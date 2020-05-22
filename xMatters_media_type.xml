@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2020-05-22T17:10:43Z</date>
+    <date>2020-05-22T18:22:57Z</date>
     <media_types>
         <media_type>
             <name>xMatters</name>
@@ -72,6 +72,7 @@
                     <value>&lt;xm_url&gt;</value>
                 </parameter>
             </parameters>
+            <max_sessions>0</max_sessions>
             <script>try {&#13;
 	Zabbix.Log(127, 'xMatters webhook script value='+value);&#13;
  &#13;
@@ -114,6 +115,18 @@ Problem name: {EVENT.NAME}&#13;
 Host: {HOST.NAME}&#13;
 Severity: {EVENT.SEVERITY}&#13;
 Operational data: {EVENT.OPDATA}&#13;
+Original problem ID: {EVENT.ID}&#13;
+{TRIGGER.URL}</message>
+                </message_template>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>RECOVERY</operation_mode>
+                    <subject>Resolved in {EVENT.DURATION}: {EVENT.NAME}</subject>
+                    <message>Problem has been resolved at {EVENT.RECOVERY.TIME} on {EVENT.RECOVERY.DATE}&#13;
+Problem name: {EVENT.NAME}&#13;
+Problem duration: {EVENT.DURATION}&#13;
+Host: {HOST.NAME}&#13;
+Severity: {EVENT.SEVERITY}&#13;
 Original problem ID: {EVENT.ID}&#13;
 {TRIGGER.URL}</message>
                 </message_template>

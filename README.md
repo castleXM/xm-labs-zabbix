@@ -28,6 +28,9 @@
 To import the Workflow into xMatters:
 1. Go to the xMatters **Workflows** tab
 2. Click **Import**.
+3. Set your API account password as a constant in xMatters.
+4. Create an Endpoint for Zabbix. `http://127.0.0.1/zabbix/api_jsonrpc.php`
+5. Update the constants of the **Zabbix - Acknowledge Event** step to your needs.
 
 ### Initiation URL
 The Workflow has a URL that is required when configuring Zabbix.
@@ -35,6 +38,7 @@ To get the URL:
 1. In the Zabbix Workflow click on the **Flows** tab.
 2. Click on the **Inbound from Zabbix** step and copy the initiation URL.
 3. This URL will be used when setting up the xMatters Media type in Zabbix.
+
 
 ## Zabbix Setup
 
@@ -62,12 +66,10 @@ In order for xMatters to Acknowledge and add comments to a Zabbix event, it need
 4. Click **Add**.
 
 ### Create the xMatters Media Type
------------------------------TODO-------------------------------------TODO
-Upload the media file provided
 
 1. Go to **Administration > Media Types** in Zabbix.
 2. Click **Import** in the upper right corner.
-3. Import the provided xMatters media type file.
+3. Import the provided [xMatters media type file](xMatters_media_type.xml).
 4. Modify the `xm_url` value to have initation URL from xMatters.
 
 
@@ -134,6 +136,14 @@ To create an Action that sends a notification via xMatters:
 3. In the **Operations** tab, under the Operations section click the **New** link.
 
 4. Enter the following:
+    * **Send to Groups**: &lt;leave empty&gt;
+    * **Send to Users**: &lt;select your users and/or xMatters groups&gt;
+    * **Send only to**: xMatters
+    * **Default message**: &lt;uncheck&gt;
+
+5. In the **Operations** tab, under the Recovery Operations section click the **New** link.
+
+6. Enter the following:
     * **Send to Groups**: &lt;leave empty&gt;
     * **Send to Users**: &lt;select your users and/or xMatters groups&gt;
     * **Send only to**: xMatters
