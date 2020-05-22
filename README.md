@@ -64,9 +64,15 @@ In order for xMatters to Acknowledge and add comments to a Zabbix event, it need
 -----------------------------TODO-------------------------------------TODO
 Upload the media file provided
 
+1. Go to **Administration > Media Types** in Zabbix.
+2. Click **Import** in the upper right corner.
+3. Import the provided xMatters media type file.
+
 
 ### Create/Update Recipients
-If you intend to send notifications directly to specific users:
+
+<details>
+<summary>If you intend to send notifications directly to specific users:</summary>
 1. In Zabbix, go to **Administration**, then **Users** and select your user.
 2. In the **Media** tab, click the **Add** link.
 3. Enter the following:
@@ -83,10 +89,12 @@ If you intend to send notifications directly to specific users:
 <img src="images/user_media.png">
 </kbd>
 </details>
+</details>
 
 If you intend to send notifications to groups in xMatters, you will need to create a **user** (not a group) in Zabbix to represent the xMatters group. You cannot use Zabbix groups as Zabbix expands those groups before calling xMatters, sending it to each user individually instead of following group shifts and escalations.
 
-To send to notifications to xMatters groups:
+<details>
+<summary>To send to notifications to xMatters groups:</summary>
 1. In Zabbix, go to **Administration**, then **Users** and click **Create User**.
 2. On the **User** tab, enter the following:
     * **Alias**: &lt;the name of your xMatters group&gt;
@@ -104,6 +112,7 @@ To send to notifications to xMatters groups:
     * User Type: &lt;depending on the Groups setting in step 2, set this to Zabbix User or Zabbix Super Admin)
 7. Click **Add**.
 8. Repeat these steps for each of your xMatters groups.
+</details>
 
 ### Create Actions
 In Zabbix, an Action is used to when you want to do something (such as send a notification) based on an event.
@@ -143,14 +152,6 @@ To create an Action that sends a notification via xMatters:
 5. Click the **Add** link (not the button).
 6. Click the **Add** button.
 
-
-## Setup Alert Script 
-To add the Zabbix integration to your Integration Agent:
-1. Extract zabbix_files.zip on the Zabbix server.
-2. Under the zabbix-alertscripts folder, copy `xMattersEvent.sh` to the Zabbix AlertScripts folder.
-    * If you don't know the location of the Zabbix AlertScripts folder, check your Zabbix configuration file.
-3. Open the `xMattersEvent.sh` file in a text editor and update the `IAHOME` value to point to where the Integration Agent is installed.
-3. In the Zabbix AlertScripts folder, execute ``chmod 755 xMattersEvent.sh``
 
 # Testing
 To test the integration, create a Zabbix event by causing the conditions required to trigger it. The associated Action will call xMatters to send notifications.
