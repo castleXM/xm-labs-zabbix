@@ -12,7 +12,7 @@
 
 # Pre-Requisites
 * [Zabbix](https://www.Zabbix.com) (tested with version 4.0-5.0 but should support others)
-* jq command line utility installed on your Zabbix server.
+* (v4.0 and below) jq command line utility installed on your Zabbix server.
 * xMatters account - If you don't have one, [get one](https://www.xmatters.com)!
 
 # Files
@@ -51,6 +51,7 @@ To get the URL:
 
 1. Under the zabbix-alertscripts folder, copy `xMattersEvent.sh` to the Zabbix AlertScripts folder.
     * If you don't know the location of the Zabbix AlertScripts folder, check your Zabbix configuration file.
+2. Run `chmod 755 xMattersEvent.sh` to make sure it's executable.
 </details>
 
 
@@ -167,7 +168,7 @@ To create an Action that sends a notification via xMatters:
     * **Send to Groups**: &lt;leave empty&gt;
     * **Send to Users**: &lt;select your users and/or xMatters groups&gt;
     * **Send only to**: xMatters
-    * **Default message**: &lt;uncheck&gt;
+    * **Default message**: &lt;unchecked&gt;
     * **Message**: &lt;enter the following in order, one per line&gt;
 Fill in `<xm_url>` with the HTTP Trigger URL from xMatters.
 ```
@@ -213,7 +214,7 @@ NONE
     * **Send to Groups**: &lt;leave empty&gt;
     * **Send to Users**: &lt;select your users and/or xMatters groups&gt;
     * **Send only to**: xMatters
-    * **Default message**: &lt;uncheck&gt;
+    * **Custom message**: &lt;unchecked&gt;
 
 5. Still in the **Operations** tab, under the Recovery Operations section click the **New** link.
 
@@ -221,7 +222,7 @@ NONE
     * **Send to Groups**: &lt;leave empty&gt;
     * **Send to Users**: &lt;select your users and/or xMatters groups&gt;
     * **Send only to**: xMatters
-    * **Default message**: &lt;uncheck&gt;
+    * **Custom message**: &lt;unchecked&gt;
 
 <details>
 <summary>Click to reveal image.</summary>
