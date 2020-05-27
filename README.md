@@ -47,7 +47,7 @@ To get the URL:
 ### Setup Alert Step
 
 <details>
-<summary>This is only required for Zabbix 4.0 and earlier.</summary>
+<summary>This is only required for Zabbix 4.0 and before.</summary>
 
 1. Under the zabbix-alertscripts folder, copy `xMattersEvent.sh` to the Zabbix AlertScripts folder.
     * If you don't know the location of the Zabbix AlertScripts folder, check your Zabbix configuration file.
@@ -81,7 +81,7 @@ In order for xMatters to Acknowledge and add comments to a Zabbix event, it need
 ### Create the xMatters Media Type
 
 <details>
-<summary>Zabbix 4.0 and earlier</summary>
+<summary>Zabbix 4.0 and before</summary>
 
 1. Check you have installed the jq command line utilty. `apt install jq`.
 1. In Zabbix, go to **Administration**, then **Media Types** and click **Create Media Type**.
@@ -159,7 +159,7 @@ In Zabbix, an Action is used to when you want to do something (such as send a no
 To create an Action that sends a notification via xMatters:
 
 <details>
-<summary>Zabbix 4.0 and earlier</summary>
+<summary>Zabbix 4.0 and before</summary>
 
 1. In Zabbix, go to **Configuration**, then **Actions** and click **Create Action**.
 2. In the **Action** tab, set a Name and Conditions for your Action.
