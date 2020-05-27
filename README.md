@@ -11,12 +11,14 @@
 
 
 # Pre-Requisites
-* [Zabbix](https://www.Zabbix.com) (tested with version 5.0 but should support others)
+* [Zabbix](https://www.Zabbix.com) (tested with version 4.0-5.0 but should support others)
+* jq command line utility installed on your Zabbix server.
 * xMatters account - If you don't have one, [get one](https://www.xmatters.com)!
 
 # Files
 * [Zabbix.zip](Zabbix.zip) - The Workflow that receives Zabbix alerts
 * [xMatters_media_type.xml](xMatters_media_type.xml) - xMatters media type for Zabbix
+* [xMattersEvent.sh](xMattersEvent.sh) - xMatters Event script for Zabbix
 
 **Note**: To download, follow each link above and then click the **Download** button. Do not try to download by right-clicking the links.
 
@@ -41,6 +43,16 @@ To get the URL:
 
 
 ## Zabbix Setup
+
+### Setup Alert Step
+
+<details>
+<summary>This is only required for Zabbix 4.0 and earlier.</summary>
+
+1. Under the zabbix-alertscripts folder, copy `xMattersEvent.sh` to the Zabbix AlertScripts folder.
+    * If you don't know the location of the Zabbix AlertScripts folder, check your Zabbix configuration file.
+</details>
+
 
 ### Add xMatters API User
 In order for xMatters to Acknowledge and add comments to a Zabbix event, it needs to be able to use the Zabbix API. In order to use the API, an xMatters user needs to be created in Zabbix for authentication:
@@ -67,10 +79,31 @@ In order for xMatters to Acknowledge and add comments to a Zabbix event, it need
 
 ### Create the xMatters Media Type
 
+<details>
+<summary>Zabbix 4.0 and earlier</summary>
+
+1. Check you have installed the jq command line utilty. `apt install jq`.
+1. In Zabbix, go to **Administration**, then **Media Types** and click **Create Media Type**.
+2. Enter the following:
+    * **Name**: `xMatters`
+    * **Type** Script
+    * **Script Name**: `xMattersEvent.sh`
+    * **Script Parmeters**:
+        * `{ALERT.SENDTO}`
+        * `{ALERT.SUBJECT}`
+        * `{ALERT.MESSAGE}`
+3. Click the **Add** button.
+</details>
+
+<details>
+<summary>Zabbix 4.4 and later</summary>
+
 1. Go to **Administration > Media Types** in Zabbix.
 2. Click **Import** in the upper right corner.
 3. Import the provided [xMatters media type file](xMatters_media_type.xml).
 4. Modify the `xm_url` value to have initation URL from xMatters.
+</details>
+
 
 
 ### Create/Update Recipients
@@ -123,11 +156,52 @@ If you intend to send notifications to groups in xMatters, you will need to crea
 ### Create Actions
 In Zabbix, an Action is used to when you want to do something (such as send a notification) based on an event.
 To create an Action that sends a notification via xMatters:
+
+<details>
+<summary>Zabbix 4.0 and earlier</summary>
+
+1. In Zabbix, go to **Configuration**, then **Actions** and click **Create Action**.
+2. In the **Action** tab, set a Name and Conditions for your Action.
+3. In the **Operations** tab, under the Operations section click the **New** link.
+4. Enter the following:
+    * **Send to Groups**: &lt;leave empty&gt;
+    * **Send to Users**: &lt;select your users and/or xMatters groups&gt;
+    * **Send only to**: xMatters
+    * **Default message**: &lt;uncheck&gt;
+    * **Message**: &lt;enter the following in order, one per line&gt;
+Fill in `<xm_url>` with the HTTP Trigger URL from xMatters.
+```
+{ALERT.SENDTO}
+{EVENT.ACK.STATUS}
+{EVENT.DATE}
+{EVENT.ID}
+{EVENT.NAME}
+{EVENT.NSEVERITY}
+{ITEM.VALUE1}
+{EVENT.TAGS}
+{EVENT.TIME}
+NONE
+{EVENT.VALUE}
+{HOST.IP}
+{HOST.NAME}
+{TRIGGER.NAME}
+{TRIGGER.ID}
+<xm_url>
+```
+5. Click the **Add** link (not the button).
+6. Do the same in the **Recovery Operations** tab
+
+</details>
+
+<details>
+<summary>Zabbix 4.4 and later</summary>
+
 1. In Zabbix, go to **Configuration**, then **Actions** and click **Create Action**.
 2. In the **Action** tab, set a Name and Conditions for your Action.
 
 <details>
 <summary>Click to reveal image.</summary>
+
 <kbd>
 <img src="images/action1.png">
 </kbd>
@@ -141,7 +215,7 @@ To create an Action that sends a notification via xMatters:
     * **Send only to**: xMatters
     * **Default message**: &lt;uncheck&gt;
 
-5. In the **Operations** tab, under the Recovery Operations section click the **New** link.
+5. Still in the **Operations** tab, under the Recovery Operations section click the **New** link.
 
 6. Enter the following:
     * **Send to Groups**: &lt;leave empty&gt;
@@ -156,8 +230,9 @@ To create an Action that sends a notification via xMatters:
 </kbd>
 </details>
 
-5. Click the **Add** link (not the button).
-6. Click the **Add** button.
+7. Click the **Add** link (not the button).
+8. Click the **Add** button.
+</details>
 
 
 # Testing
