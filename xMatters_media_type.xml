@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2020-05-22T18:22:57Z</date>
+    <date>2020-06-16T17:12:51Z</date>
     <media_types>
         <media_type>
             <name>xMatters</name>
@@ -68,6 +68,10 @@
                     <value>{TRIGGER.ID}</value>
                 </parameter>
                 <parameter>
+                    <name>xm_auth</name>
+                    <value/>
+                </parameter>
+                <parameter>
                     <name>xm_url</name>
                     <value>&lt;xm_url&gt;</value>
                 </parameter>
@@ -75,7 +79,7 @@
             <max_sessions>0</max_sessions>
             <script>try {&#13;
 	Zabbix.Log(127, 'xMatters webhook script value='+value);&#13;
- &#13;
+&#13;
 	var result = {&#13;
 		'tags': {&#13;
 			'endpoint': 'xMatters'&#13;
@@ -84,25 +88,30 @@
 	params = JSON.parse(value),&#13;
 	req = new CurlHttpRequest(),&#13;
 	fields = {};&#13;
- &#13;
+&#13;
 	req.AddHeader('Content-Type: application/json');&#13;
- &#13;
+&#13;
+    if (params.xm_auth != &quot;&quot;) {&#13;
+        req.AddHeader('Authorization: Basic '+params.xm_auth);&#13;
+    }&#13;
+&#13;
     fields = params;&#13;
+    fields.xm_auth = &quot;&quot;;&#13;
 	resp = req.Post(params.xm_url,&#13;
 		JSON.stringify({&quot;fields&quot;: fields})&#13;
 	);&#13;
- &#13;
+&#13;
 	if (req.Status() &lt; 200 || req.Status() &gt;= 300) {&#13;
 		throw 'Response code: '+req.Status();&#13;
 	}&#13;
- &#13;
+&#13;
 } catch (error) {&#13;
 	Zabbix.Log(127, 'xMatters notify creation failed'+JSON.stringify({&quot;fields&quot;: fields}));&#13;
 	Zabbix.Log(127, 'xMatters notify creation failed: '+error);&#13;
- &#13;
+&#13;
     result = {};&#13;
 }&#13;
- &#13;
+&#13;
 return JSON.stringify(result);</script>
             <description>Send a request to an xMatters HTTP trigger.</description>
             <message_templates>

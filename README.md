@@ -103,6 +103,7 @@ In order for xMatters to Acknowledge and add comments to a Zabbix event, it need
 2. Click **Import** in the upper right corner.
 3. Import the provided [xMatters media type file](xMatters_media_type.xml).
 4. Modify the `xm_url` value to have initation URL from xMatters.
+5. Modify the `xm_auth` value if you are using basic authentication into xMatters. This value should be what goes in an HTTP authorization header. Take your xMatters API username and password and put it in this format `username:password`. Then in bash run `echo -n "VALUE" | openssl base64` with VALUE being what you just created with your username and password. If not using `xm_auth` then leave this value blank.
 </details>
 
 
@@ -192,6 +193,7 @@ NONE
 <xm_password>
 ```
 **note: `<xm_username>` and `<xm_password>` are optional arguments for basic authentication into xMatters.**
+
 5. Click the **Add** link (not the button).
 6. Do the same in the **Recovery Operations** tab
 
