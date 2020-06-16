@@ -43,6 +43,12 @@ url="${values[15]}"
 echo $JSON_STRING
 echo $url
 
+username="${values[16]}"
+password="${values[17]}"
 
-
-curl -H "Content-Type: application/json" -X POST -d "{\"fields\": $JSON_STRING}" $url
+if [ -z "${username}" ] && [ -z "${password}" ]
+then
+	curl -H "Content-Type: application/json" -X POST -d "{\"fields\": $JSON_STRING}" $url
+else
+	curl -H "Content-Type: application/json" -u "${username}:${password}" -X POST -d "{\"fields\": $JSON_STRING}" $url
+fi

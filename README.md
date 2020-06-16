@@ -188,7 +188,10 @@ NONE
 {TRIGGER.NAME}
 {TRIGGER.ID}
 <xm_url>
+<xm_username>
+<xm_password>
 ```
+**note: `<xm_username>` and `<xm_password>` are optional arguments for basic authentication into xMatters.**
 5. Click the **Add** link (not the button).
 6. Do the same in the **Recovery Operations** tab
 
